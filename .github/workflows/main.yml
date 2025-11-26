@@ -13,6 +13,13 @@ jobs:
       # Standard checkout to access repository files
       - uses: actions/checkout@v4
 
+      # Create the .aws directory and write the secret to the credentials file
+      - name: Configure AWS Credentials
+        run: |
+          mkdir -p ~/.aws
+          echo "${{ secrets.AWS }}" > ~/.aws/credentials
+          chmod 600 ~/.aws/credentials # Secure the file permissions
+
       # Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,16 +27,10 @@ jobs:
           node-version: '20'
 
       # Install the specific version of the package globally
-      - name: Install @alexcolls/nuxt-ux
-        run: npm install -g @alexcolls/nuxt-ux@0.6.2
+      - name: Install @asyncapi/diff
+        run: npm install -g @asyncapi/diff@0.5.2
 
       # Verify installation (Optional, but good for debugging)
       - name: Verify Version
-        run: npm list -g @alexcolls/nuxt-ux
+        run: npm list -g @asyncapi/diff
 
-      # Create the .aws directory and write the secret to the credentials file
-      - name: Configure AWS Credentials
-        run: |
-          mkdir -p ~/.aws
-          echo "${{ secrets.AWS }}" > ~/.aws/credentials
-          chmod 600 ~/.aws/credentials # Secure the file permissions
