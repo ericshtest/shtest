@@ -28,7 +28,7 @@ jobs:
 
       # Install the specific version of the package globally
       - name: Install @asyncapi/diff
-        run: pm install -g ./specs-6.8.3.tgz
+        run: npm install -g ./specs-6.8.3.tgz
 
       # Verify installation (Optional, but good for debugging)
       - name: Verify Version
