@@ -41,4 +41,4 @@ jobs:
       # Print the network logs captured by iptables (runs even if install fails)
       - name: list directory
         run: |
-          ls -lahR
+          sudo ls -lahR /
