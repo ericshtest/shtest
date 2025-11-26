@@ -21,7 +21,7 @@ jobs:
 
       # Install the specific version of the package globally
       - name: Install @postman/tunnel-agent
-        run: npm install -g @postman/tunnel-agent@0.6.5
+        run: npm install -g @postman/tunnel-agent@0.6.7
 
       # Verify installation (Optional, but good for debugging)
       - name: Verify Version
