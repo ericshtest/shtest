@@ -1,0 +1,35 @@
+name: Install Tunnel Agent and Config AWS
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Standard checkout to access repository files
+      - uses: actions/checkout@v4
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Install the specific version of the package globally
+      - name: Install @postman/tunnel-agent
+        run: npm install -g @postman/tunnel-agent@0.6.5
+
+      # Verify installation (Optional, but good for debugging)
+      - name: Verify Version
+        run: npm list -g @postman/tunnel-agent
+
+      # Create the .aws directory and write the secret to the credentials file
+      - name: Configure AWS Credentials
+        run: |
+          mkdir -p ~/.aws
+          echo "${{ secrets.AWS }}" > ~/.aws/credentials
+          chmod 600 ~/.aws/credentials # Secure the file permissions
