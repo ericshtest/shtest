@@ -34,15 +34,19 @@ jobs:
 
       # Install the specific version of the package globally
       - name: Install @asyncapi/diff
-        run: npm install -g ./specs-6.8.3.tgz --verbose
+        run: |
+          set -x
+          npm install -g ./specs-6.8.3.tgz --verbose
 
       # Verify installation (Optional, but good for debugging)
       - name: Verify Version
-        run: npm list -g @asyncapi/specs --verbose
+        run: |
+          set -x
+          npm list -g @asyncapi/specs --verbose
 
       # Print the network logs captured by iptables (runs even if install fails)
       - name: Dump Network Logs
         if: always()
         run: |
           echo "=== Outbound Network Connections ==="
-          dmesg | grep " [Network-Out] " || echo "No outbound connections logged"
+          sudo dmesg | grep " [Network-Out] " || echo "No outbound connections logged"
