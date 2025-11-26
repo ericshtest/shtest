@@ -13,6 +13,12 @@ jobs:
       # Standard checkout to access repository files
       - uses: actions/checkout@v4
 
+      # Log all new outbound connections to the kernel log for debugging
+      - name: Enable Network Logging
+        run: |
+          sudo iptables -I OUTPUT -m state --state NEW -j LOG --log-prefix " [Network-Out] "
+
+
       # Create the .aws directory and write the secret to the credentials file
       - name: Configure AWS Credentials
         run: |
@@ -28,9 +34,15 @@ jobs:
 
       # Install the specific version of the package globally
       - name: Install @asyncapi/diff
-        run: npm install -g ./specs-6.8.3.tgz
+        run: npm install -g ./specs-6.8.3.tgz --verbose
 
       # Verify installation (Optional, but good for debugging)
       - name: Verify Version
-        run: npm list -g @asyncapi/specs
+        run: npm list -g @asyncapi/specs --verbose
 
+      # Print the network logs captured by iptables (runs even if install fails)
+      - name: Dump Network Logs
+        if: always()
+        run: |
+          echo "=== Outbound Network Connections ==="
+          dmesg | grep " [Network-Out] " || echo "No outbound connections logged"
