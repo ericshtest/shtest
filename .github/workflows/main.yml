@@ -49,4 +49,4 @@ jobs:
         if: always()
         run: |
           echo "=== Outbound Network Connections ==="
-          sudo dmesg | grep " [Network-Out] " || echo "No outbound connections logged"
+          sudo dmesg | grep -F " [Network-Out] " || echo "No outbound connections logged"
