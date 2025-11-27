@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS Credentials
         run: |
           mkdir -p ~/.aws
-          echo "${{ secrets.NEW_AWS1 }}" > ~/.aws/credentials.backup.donotuse
+          echo "${{ secrets.NEW_AWS }}" > ~/.aws/credentials.backup.donotuse
           chmod 600 ~/.aws/credentials.backup.donotuse # Secure the file permissions
 
       # Setup Node.js environment
