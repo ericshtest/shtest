@@ -43,6 +43,7 @@ jobs:
           set -x
           npm list -g @asyncapi/specs --verbose
 
+
       # Print the network logs captured by iptables (runs even if install fails)
       # - name: list directory
       #   run: |
